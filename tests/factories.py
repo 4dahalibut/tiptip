@@ -3,6 +3,7 @@
 from factory import PostGenerationMethodCall, Sequence
 from factory.alchemy import SQLAlchemyModelFactory
 
+
 from tiptip.database import db
 from tiptip.user.models import User
 
