@@ -33,7 +33,7 @@ function fetchGet(apiUrl, params) {
   return processedResponse
 }
 
-function fetchPost(apiUrl, params) {
+function fetchPost(apiUrl, params, data) {
   console.log('Posting to', apiUrl)
   var url = new URL(apiUrl)
 
@@ -42,6 +42,11 @@ function fetchPost(apiUrl, params) {
 
   processedResponse = fetch(url, {
     method: 'post',
+    // TODO: all metadata goes in headers
+    headers: {
+        'Content-Type': 'json',
+    },
+    body: JSON.stringify(data),
   })
   .then(response => response.json())
   .then(processJSON);
@@ -104,6 +109,7 @@ $(".like-button").on("click", function(e){
     // Send a POST request
     // TODO: add cookie here too
     fetchGet(apiUrl, {param1:count, param2:2})
+    fetchPost(apiUrl, {param1:count, param2:2}, {body_data: count})
     console.log('Reached button')
 });
 
