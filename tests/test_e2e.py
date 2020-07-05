@@ -40,7 +40,7 @@ def register_merchant(testapp, username):
     return (form["username"].value, form["password"].value), member_id
 
 
-def test_pure_happy(db, testapp, admin):
+def test_pure_happy(db, testapp):
     # Register Users
     zak = register_customer(testapp, name="zak")
     sara = register_customer(testapp, name="sara")

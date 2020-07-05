@@ -14,7 +14,7 @@ from flask_login import login_required, login_user, logout_user
 from tiptip.extensions import login_manager
 from tiptip.public.forms import LoginForm
 from tiptip.user.forms import RegisterForm, MerchantRegisterForm
-from tiptip.user.models import Merchant, Customer, User, Role
+from tiptip.user.models import Merchant, Customer, User
 from tiptip.utils import flash_errors
 
 blueprint = Blueprint("public", __name__, static_folder="../static")

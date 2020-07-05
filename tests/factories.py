@@ -30,7 +30,3 @@ class UserFactory(BaseFactory):
         """Factory configuration."""
 
         model = Customer
-
-
-class AdminFactory(UserFactory):
-    is_admin = True

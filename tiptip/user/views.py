@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """User views."""
-import simplejson as json
+import simplejson as json  # Used
 from flask import Blueprint, render_template, request
 from flask_login import login_required, current_user
 from flask_api import status
