@@ -13,11 +13,13 @@ from flask_login import login_required, login_user, logout_user
 
 from tiptip.extensions import login_manager
 from tiptip.public.forms import LoginForm
-from tiptip.user.forms import RegisterForm
-from tiptip.user.models import User
+from tiptip.user.forms import RegisterForm, MerchantRegisterForm
+from tiptip.user.models import Merchant, Customer, User, Role
 from tiptip.utils import flash_errors
 
 blueprint = Blueprint("public", __name__, static_folder="../static")
+
+login_manager.login_view = "/"
 
 
 @login_manager.user_loader
@@ -34,7 +36,7 @@ def home():
     # Handle logging in
     if request.method == "POST":
         if form.validate_on_submit():
-            login_user(form.user)
+            login_user(form.user, remember=True)
             flash("You are logged in.", "success")
             redirect_url = request.args.get("next") or url_for("user.members")
             return redirect(redirect_url)
@@ -57,17 +59,40 @@ def register():
     """Register new user."""
     form = RegisterForm(request.form)
     if form.validate_on_submit():
-        User.create(
+        customer = Customer.create(
             username=form.username.data,
             email=form.email.data,
             password=form.password.data,
             active=True,
         )
+        login_user(customer)
         flash("Thank you for registering. You can now log in.", "success")
-        return redirect(url_for("public.home"))
+        return redirect(url_for("user.members"))
     else:
         flash_errors(form)
     return render_template("public/register.html", form=form)
+
+
+@blueprint.route("/registerMerchant/", methods=["GET", "POST"])
+def register_merchant():
+    """Register new merchant."""
+    form = MerchantRegisterForm(request.form)
+    if form.validate_on_submit():
+        merchant = Merchant.create(
+            username=form.username.data,
+            email=form.email.data,
+            password=form.password.data,
+            active=True,
+        )
+        login_user(merchant)
+        flash(
+            "Thank you for registering. You will have to wait for an admin to approve before you are able to take payments.",
+            "success",
+        )
+        return redirect(url_for("user.members"))
+    else:
+        flash_errors(form)
+    return render_template("public/register_merchant.html", form=form)
 
 
 @blueprint.route("/about/")
