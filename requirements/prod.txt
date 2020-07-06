@@ -12,6 +12,7 @@ psycopg2-binary==2.8.5
 
 # Migrations
 Flask-Migrate==2.5.3
+Flask-API==2.0
 
 # Forms
 email-validator==1.1.1
@@ -38,3 +39,6 @@ Flask-DebugToolbar==0.11.0
 
 # Environment variable parsing
 environs==8.0.0
+
+#So that decimal will json dumps properly
+simplejson==3.17.0

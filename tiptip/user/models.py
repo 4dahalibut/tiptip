@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""User models."""
+import decimal
 import datetime as dt
 
 from flask_login import UserMixin
@@ -14,23 +14,6 @@ from tiptip.database import (
 from tiptip.extensions import bcrypt
 
 
-class Role(PkModel):
-    """A role for a user."""
-
-    __tablename__ = "roles"
-    name = Column(db.String(80), unique=True, nullable=False)
-    user_id = reference_col("users", nullable=True)
-    user = relationship("User", backref="roles")
-
-    def __init__(self, name, **kwargs):
-        """Create instance."""
-        super().__init__(name=name, **kwargs)
-
-    def __repr__(self):
-        """Represent instance as a unique string."""
-        return f"<Role({self.name})>"
-
-
 class User(UserMixin, PkModel):
     """A user of the app."""
 
@@ -43,7 +26,7 @@ class User(UserMixin, PkModel):
     first_name = Column(db.String(30), nullable=True)
     last_name = Column(db.String(30), nullable=True)
     active = Column(db.Boolean(), default=False)
-    is_admin = Column(db.Boolean(), default=False)
+    type = Column(db.String(20))
 
     def __init__(self, username, email, password=None, **kwargs):
         """Create instance."""
@@ -69,3 +52,32 @@ class User(UserMixin, PkModel):
     def __repr__(self):
         """Represent instance as a unique string."""
         return f"<User({self.username!r})>"
+
+    __mapper_args__ = {"polymorphic_on": type, "polymorphic_identity": "user"}
+
+
+class Customer(User):
+    is_admin = Column(db.Boolean(), default=False)
+    amount_paid = Column(db.Numeric(), default=0)
+
+    def charge(self, amount):
+        self.amount_paid += decimal.Decimal(amount)
+
+    __mapper_args__ = {
+        "polymorphic_identity": "customer",
+    }
+
+
+class Merchant(User):
+    verified = Column(db.Boolean(), default=False)
+    amount_earned = Column(db.Numeric(), default=0)
+
+    def pay(self, amount):
+        self.amount_earned += decimal.Decimal(amount)
+
+    def verify(self):
+        self.verified = True
+
+    __mapper_args__ = {
+        "polymorphic_identity": "merchant",
+    }
