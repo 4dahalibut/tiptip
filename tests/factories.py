@@ -5,7 +5,7 @@ from factory.alchemy import SQLAlchemyModelFactory
 
 
 from tiptip.database import db
-from tiptip.user.models import User
+from tiptip.user.models import Customer
 
 
 class BaseFactory(SQLAlchemyModelFactory):
@@ -29,4 +29,4 @@ class UserFactory(BaseFactory):
     class Meta:
         """Factory configuration."""
 
-        model = User
+        model = Customer

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 """Defines fixtures available to all tests."""
-
 import logging
 
 import pytest
@@ -8,7 +7,6 @@ from webtest import TestApp
 
 from tiptip.app import create_app
 from tiptip.database import db as _db
-
 from .factories import UserFactory
 
 
