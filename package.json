@@ -35,14 +35,14 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.4.1",
     "popper.js": "^1.15.0",
-    "run-script-os": "^1.0.7"
+    "run-script-os": "^1.0.7",
+    "concurrently": "^5.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.7.7",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.6",
-    "concurrently": "^5.0.0",
     "css-loader": "^3.0.0",
     "eslint": "^7.2.0",
     "eslint-config-airbnb-base": "^14.0.0",
