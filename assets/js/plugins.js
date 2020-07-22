@@ -5,14 +5,13 @@
 fetch documentation - https://fetch.spec.whatwg.org/#fetch-api
 */
 // Fetch because it has promises and is easier to setup.
-apiUrl = 'https://httpbin.org/get'; // TODO: change from global variable later
 
 function processJSON(json){
   // TODO: handle errors here.
   // TODO: all logic for processing response
-  // console.log(json)
+   console.log(json)
   // console.log(json.args)
-  console.log(json.args.param1)
+//  console.log(json.args.param1)
   // console.log(json.headers)
   return json
 }
@@ -25,9 +24,9 @@ function fetchGet(apiUrl, params) {
   Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
 
   processedResponse = fetch(url, {
-    method: 'get'
+    method: 'GET'
   })
-  .then(response => response.json())
+//  .then(response => response.json())
   .then(processJSON);
 
   return processedResponse
@@ -41,18 +40,42 @@ function fetchPost(apiUrl, params, data) {
   Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
 
   processedResponse = fetch(url, {
-    method: 'post',
+    method: 'POST',
     // TODO: all metadata goes in headers
-    headers: {
-        'Content-Type': 'json',
-    },
+//    headers : {
+//        'Content-Type': 'application/json',
+//        'Accept': 'application/json'
+//       },
     body: JSON.stringify(data),
   })
   .then(response => response.json())
   .then(processJSON);
+    console.log(processedResponse)
+
+  // TODO: add status check (200)
 
   return processedResponse
 }
+
+
+function fetchPost1(apiUrl, params, data) {
+  console.log('Inside fetchPost1 for', apiUrl)
+  var url = new URL(apiUrl)
+
+  // set parameters to URL request
+  Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+
+  processedResponse = fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(data),
+  })
+  .then(response => response.text())
+
+  console.log(processedResponse)
+
+  return processedResponse
+}
+
 
 // fetch('https://jsonplaceholder.typicode.com/todos/1')
 //   .then(response => response.json())
@@ -106,10 +129,22 @@ $(".like-button").on("click", function(e){
     var count = $counter.text() | 0; //corose current count to an int
     $counter.text(count + 1);//set new count
 
+//    apiUrl = 'https://httpbin.org/get'; // TODO: change from global variable later
+//    fetchGet(apiUrl, {param1:count, param2:2})
+//    fetchPost(apiUrl, {param1:count, param2:2}, {body_data: count})
+
+
     // Send a POST request
+    apiUrl = 'http://0.0.0.0:5000/users/tip'
     // TODO: add cookie here too
-    fetchGet(apiUrl, {param1:count, param2:2})
-    fetchPost(apiUrl, {param1:count, param2:2}, {body_data: count})
+    fetchPost1(apiUrl, {}, {'amount': 1, 'merchant_id': 1})
     console.log('Reached button')
 });
 
+
+$(".cookie-button").on("click", function(e){
+    var $cookie = $(this).find(".cookie"); // finds count var in this HTML element
+    apiUrl = 'https://httpbin.org/users/cookie'; // TODO: change from global variable later
+    var response = fetchGet(apiUrl, {})
+    console.log(response.cookie)
+});

@@ -4,6 +4,7 @@ import simplejson as json  # Used
 from flask import Blueprint, render_template, request
 from flask_login import login_required, current_user
 from flask_api import status
+from flask import jsonify
 from tiptip.user.models import Merchant
 
 blueprint = Blueprint("user", __name__, url_prefix="/users", static_folder="../static")
@@ -60,6 +61,10 @@ def get_earnings():
 @login_required
 def get_cookie():
     """List members."""
-    if not current_user.is_authenticated or not current_user.is_admin:
-        return status.HTTP_401_UNAUTHORIZED
-    return status.HTTP_202_ACCEPTED, current_user
+    # if not current_user.is_authenticated or not current_user.is_admin:
+    #     return status.HTTP_401_UNAUTHORIZED
+    user_id = current_user.get_id()
+    token = current_user.encode_auth_token(user_id)
+    return jsonify({'id': user_id, 'token': token}), status.HTTP_202_ACCEPTED
+
+

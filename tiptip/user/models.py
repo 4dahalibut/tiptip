@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import decimal
 import datetime as dt
+import jwt
 
 from flask_login import UserMixin
 
@@ -43,6 +44,27 @@ class User(UserMixin, PkModel):
     def check_password(self, value):
         """Check password."""
         return bcrypt.check_password_hash(self.password, value)
+
+    def encode_auth_token(self, user_id):
+        """
+        Generates the Auth Token
+        :return: string
+        """
+        try:
+            payload = {
+                'exp': dt.datetime.utcnow() + dt.timedelta(days=0, seconds=5),
+                'iat': dt.datetime.utcnow(),
+                'sub': user_id
+            }
+            return jwt.encode(
+                payload,
+                # TODO: secret key, The secret key must be random and only accessible server-side. https://realpython.com/token-based-authentication-with-flask/#jwt-setup
+                # app.config.get('SECRET_KEY'),
+                'super-duper-secret',
+                algorithm='HS256'
+            )
+        except Exception as e:
+            return e
 
     @property
     def full_name(self):

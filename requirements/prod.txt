@@ -42,3 +42,6 @@ environs==8.0.0
 
 #So that decimal will json dumps properly
 simplejson==3.17.0
+
+# Token encoding for cookies
+Flask-JWT
