@@ -1,0 +1,60 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TipTip Preview</title>
+    <link href="{{static_url_for('static', filename='build/tailwind.css') }}" rel="stylesheet" />
+    <link href="{{static_url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Offside&display=swap');
+    </style>
+</head>
+
+<body class="bg-cover bg-lightblue">
+    <!-- This example requires Tailwind CSS v1.4.0+ -->
+    <div class="relative bg-pink">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="flex justify-between items-center py-6 md:justify-start md:space-x-10">
+                <div class="lg:w-0 lg:flex-1">
+                    <a href="#" class="flex">
+                        <img class="h-8 w-auto sm:h-10" src="/static/bag.svg" alt="TipJar">
+                        <p class="tiptipfont pl-2 pt-0 text-2xl">TipTip</p>
+                    </a>
+                </div>
+                <div class="-mr-2 -my-2 md:hidden">
+                    <button type="button"
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="hidden md:flex items-center justify-end space-x-8 md:flex-1 lg:w-0">
+                    <a href="#"
+                        class="whitespace-no-wrap text-base leading-6 font-medium text-gray-700 hover:text-gray-900 focus:outline-none focus:text-gray-900">
+                        Sign in
+                    </a>
+                    <span class="inline-flex rounded-md shadow-sm">
+                        <a href="#"
+                            class="whitespace-no-wrap inline-flex items-center justify-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-lightblue hover:bg-mediumblue focus:outline-none focus:border-lightblue focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
+                            Sign up
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="grid grid-cols-3">
+        <h1 class="font-sans text-4xl text-center pt-4">We offer a like button for users to show their appreciation for
+            the news you produce</h1>
+        <p>News payments are still broken. Our product might not solve it, but it does complement both Ad models and
+            Payment models. Unlock the possibility of payment from the long tail of users who won't subscribe and might
+            use an adblocker for fast website loading and lessened distractions, but still wannt to pay for your work.
+        </p>
+    </div>
+</body>
+
+</html>
