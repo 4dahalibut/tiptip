@@ -50,6 +50,7 @@ env/
 
 # webpack-built files
 /tiptip/static/build/
+*.gz
 
 # Configuration
 .env
