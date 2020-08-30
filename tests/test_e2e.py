@@ -5,7 +5,7 @@ def register_customer(testapp, name):
     res = testapp.get("/")
     assert res.status_code == 200
     # Clicks Create Account button
-    res = res.click("Create account")
+    res = res.clickbutton("Sign Up")
     # Fills out the form
     form = res.forms["registerForm"]
     form["username"] = name
@@ -24,7 +24,7 @@ def register_merchant(testapp, username):
     res = testapp.get("/")
     assert res.status_code == 200
     # Clicks Create Account button
-    res = res.click("Create merchant account")
+    res = res.clickbutton("Create merchant account")
     # Fills out the form
     form = res.forms["registerMerchantForm"]
     form["username"] = username

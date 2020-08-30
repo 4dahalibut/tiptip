@@ -115,10 +115,16 @@
                 We designed a one-click donation button to complement paywalls and ads, to enable frictionless funding of news articles.
             </p>
 
-            <button onclick="window.location.href={{ url_for('public.register') }}"
+            <button onclick="window.location.href='{{ url_for('public.register') }}'"
                     class="mx-auto lg:mx-0 hover:underline text-gray-800 font-extrabold rounded my-2 md:my-6 py-4 px-8 shadow-lg w-48"
             >
                 Sign Up
+            </button>
+            <button onclick="window.location.href='{{ url_for('public.register_merchant') }}'"
+                    class="hidden"
+            >
+
+                Create merchant account
             </button>
         </div>
 
