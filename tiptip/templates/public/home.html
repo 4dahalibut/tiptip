@@ -116,11 +116,28 @@
                 frictionless funding of news articles.
             </p>
 
-            <button onclick="window.location.href='{{ url_for('public.register') }}'"
-                    class="mx-auto lg:mx-0 hover:underline text-gray-800 font-extrabold rounded my-2 md:my-6 py-4 px-8 shadow-lg w-48"
+             <button hidden onclick="window.location.href='{{ url_for('public.register') }}'"
+                     class="mx-auto lg:mx-0 hover:underline text-gray-800 font-extrabold rounded my-2 md:my-6 py-4 px-8 shadow-lg w-48">Sign Up</button>
+
+
+            <form class="w-full max-w-sm mx-auto" name="emailEntry" id="emailEntry"
+                  method="post"
+                  action="{{ url_for('public.signup') }}"
             >
-                Sign Up
-            </button>
+                <p
+                        class="leading-normal text-gray-800 text-base md:text-l lg:text-l mb-0 max-w-2xl"
+                >
+                    Enter your email to be notified when we're ready
+                </p>
+                <div class="flex items-center py-2" id="mc_embed_signup_scroll">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <input class="appearance-none bg-white border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+                           type="email" placeholder="Email" aria-label="Email" id="email" name="email" required>
+                    <input class="mx-auto lg:mx-0 hover:underline text-gray-800 font-extrabold rounded my-2 md:my-6 py-2 px-6 shadow-lg" id="mc-embedded-subscribe"
+                           type="submit" value="Submit">
+                </div>
+            </form>
+
             <button onclick="window.location.href='{{ url_for('public.register_merchant') }}'"
                     class="hidden"
             >
@@ -157,8 +174,14 @@
                         But it's a mighty button
                     </h3>
                     <p class="text-gray-600 mb-8">
-                        At our company TipTip, we are trying to make a new way for readers to give money to the news institutions that they depend on. To fill that gap, we designed a one-click donation button complementing the conventional model consisting of paywalls and ads. This way, otherwise unpaying readers can make small, frictionless donations to the vendors of the articles they derive value from.  Our goal is to complement existing payment models, without disrupting the subscription funnel we know you depend on.
-<br/><br/>
+                        At our company TipTip, we are trying to make a new way for readers to give
+                        money to the news institutions that they depend on. To fill that gap, we
+                        designed a one-click donation button complementing the conventional model
+                        consisting of paywalls and ads. This way, otherwise unpaying readers can
+                        make small, frictionless donations to the vendors of the articles they
+                        derive value from. Our goal is to complement existing payment models,
+                        without disrupting the subscription funnel we know you depend on.
+                        <br/><br/>
 
                     </p>
                 </div>
@@ -601,7 +624,12 @@
                             News is in trouble
                         </h3>
                         <p class="text-gray-600 mb-8">
-                            To fill that gap, we designed a one-click donation button complementing the conventional model consisting of paywalls and ads. This way, otherwise unpaying readers can make small, frictionless donations to the vendors of the articles they derive value from.  Our goal is to complement existing payment models, without disrupting the subscription funnel we know you depend on.
+                            To fill that gap, we designed a one-click donation button complementing
+                            the conventional model consisting of paywalls and ads. This way,
+                            otherwise unpaying readers can make small, frictionless donations to the
+                            vendors of the articles they derive value from. Our goal is to
+                            complement existing payment models, without disrupting the subscription
+                            funnel we know you depend on.
                         </p>
                     </div>
                 </div>
@@ -712,120 +740,6 @@
             </div>
         </div>
     </section>
-
-    <section id="costs" class="hidden">
-        <div class="container mx-auto px-2 pt-4 pb-12 text-gray-800">
-            <h2
-                    class="w-full my-2 text-5xl font-black leading-tight text-center text-gray-800"
-            >
-                Pricing
-            </h2>
-            <div class="w-full mb-4">
-                <div
-                        class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"
-                ></div>
-            </div>
-
-            <div
-                    class="flex flex-col sm:flex-row justify-center pt-12 my-12 sm:my-4"
-            >
-                <div
-                        class="flex flex-col w-5/6 lg:w-1/4 mx-auto lg:mx-0 rounded-none lg:rounded-l-lg bg-white mt-4"
-                >
-                    <div
-                            class="flex-1 bg-white text-gray-600 rounded-t rounded-b-none overflow-hidden shadow"
-                    >
-                        <div class="p-8 text-3xl font-bold text-center border-b-4">
-                            Free
-                        </div>
-                        <ul class="w-full text-center text-sm">
-                            <li class="border-b py-4">Thing</li>
-                            <li class="border-b py-4">Thing</li>
-                            <li class="border-b py-4">Thing</li>
-                        </ul>
-                    </div>
-                    <div
-                            class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6"
-                    >
-                        <div
-                                class="w-full pt-6 text-3xl text-gray-600 font-bold text-center"
-                        >
-                            £0 <span class="text-base">for one user</span>
-                        </div>
-                        <div class="flex items-center justify-center">
-                            <button
-                                    class="mx-auto lg:mx-0 hover:underline gradient2 text-gray-800 font-bold rounded my-6 py-4 px-8 shadow-lg"
-                            >
-                                Sign Up
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div
-                        class="flex flex-col w-5/6 lg:w-1/3 mx-auto lg:mx-0 rounded-lg bg-white mt-4 sm:-mt-6 gradient shadow hover:shadow-lg z-10"
-                >
-                    <div class="flex-1 rounded-t rounded-b-none overflow-hidden">
-                        <div class="w-full p-8 text-3xl font-bold text-center">Basic</div>
-                        <ul class="w-full text-center text-base font-bold">
-                            <li class="py-4">Thing</li>
-                            <li class="py-4">Thing</li>
-                            <li class="py-4">Thing</li>
-                            <li class="py-4">Thing</li>
-                        </ul>
-                    </div>
-                    <div
-                            class="flex-none mt-auto rounded-b rounded-t-none overflow-hidden p-6"
-                    >
-                        <div class="w-full pt-6 text-4xl font-bold text-center">
-                            £x.99 <span class="text-base">/ per user</span>
-                        </div>
-                        <div class="flex items-center justify-center">
-                            <button
-                                    class="mx-auto lg:mx-0 hover:underline gradient2 text-gray-800 font-bold rounded my-6 py-4 px-8 shadow-lg"
-                            >
-                                Sign Up
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div
-                        class="flex flex-col w-5/6 lg:w-1/4 mx-auto lg:mx-0 rounded-none lg:rounded-l-lg bg-white mt-4"
-                >
-                    <div
-                            class="flex-1 bg-white text-gray-600 rounded-t rounded-b-none overflow-hidden shadow"
-                    >
-                        <div class="p-8 text-3xl font-bold text-center border-b-4">
-                            Pro
-                        </div>
-                        <ul class="w-full text-center text-sm">
-                            <li class="border-b py-4">Thing</li>
-                            <li class="border-b py-4">Thing</li>
-                            <li class="border-b py-4">Thing</li>
-                        </ul>
-                    </div>
-                    <div
-                            class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6"
-                    >
-                        <div
-                                class="w-full pt-6 text-3xl text-gray-600 font-bold text-center"
-                        >
-                            £x.99 <span class="text-base">/ per user</span>
-                        </div>
-                        <div class="flex items-center justify-center">
-                            <button
-                                    class="mx-auto lg:mx-0 hover:underline gradient2 text-gray-800 font-bold rounded my-6 py-4 px-8 shadow-lg"
-                            >
-                                Sign Up
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section class="gradient w-full mx-auto text-center pt-6 pb-12">
         <h2
                 class="w-full my-2 text-5xl font-black leading-tight text-center text-white"
@@ -959,45 +873,6 @@
         </div>
     </footer>
 
-    <script>
-        /*Toggle dropdown list*/
-        /*https://gist.github.com/slavapas/593e8e50cf4cc16ac972afcbad4f70c8*/
-
-        var navMenuDiv = document.getElementById("nav-content");
-        var navMenu = document.getElementById("nav-toggle");
-
-        document.onclick = check;
-
-        function check(e) {
-            var target = (e && e.target) || (event && event.srcElement);
-
-            //Nav Menu
-            if (!checkParent(target, navMenuDiv)) {
-                // click NOT on the menu
-                if (checkParent(target, navMenu)) {
-                    // click on the link
-                    if (navMenuDiv.classList.contains("hidden")) {
-                        navMenuDiv.classList.remove("hidden");
-                    } else {
-                        navMenuDiv.classList.add("hidden");
-                    }
-                } else {
-                    // click both outside link and outside menu, hide menu
-                    navMenuDiv.classList.add("hidden");
-                }
-            }
-        }
-
-        function checkParent(t, elm) {
-            while (t.parentNode) {
-                if (t == elm) {
-                    return true;
-                }
-                t = t.parentNode;
-            }
-            return false;
-        }
-    </script>
 {% endblock %}
 </body>
 </html>
