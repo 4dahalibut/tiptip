@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 """Public section, including homepage and signup."""
+import json
+import requests
 from flask import (
     Blueprint,
     current_app,
@@ -13,8 +15,8 @@ from flask_login import login_required, login_user, logout_user
 
 from tiptip.extensions import login_manager
 from tiptip.public.forms import LoginForm
-from tiptip.user.forms import RegisterForm, MerchantRegisterForm
-from tiptip.user.models import Merchant, Customer, User
+from tiptip.user.forms import MerchantRegisterForm, RegisterForm
+from tiptip.user.models import Customer, Merchant, User
 from tiptip.utils import flash_errors
 
 blueprint = Blueprint("public", __name__, static_folder="../static")
@@ -93,6 +95,28 @@ def register_merchant():
     else:
         flash_errors(form)
     return render_template("public/register_merchant.html", form=form)
+
+
+@blueprint.route("/signup/", methods=["post"])
+def signup():
+    data = {
+        "email_address": request.form["email"],
+        "status": "subscribed",
+    }
+    response = requests.post(
+        url="https://us7.api.mailchimp.com/3.0/lists/{list_id}/members".format(
+            list_id="85ebad71ac"
+        ),
+        data=json.dumps(data),
+        auth=("key", current_app.config["MAILCHIMP_KEY"]),
+    )
+    if response.status_code == 400:
+        return "Your email {} was already added to our list!".format(
+            request.form["email"]
+        )
+    else:
+        assert response.status_code == 200, response.content
+    return "success!"
 
 
 @blueprint.route("/about/")

@@ -49,7 +49,7 @@ env/
 /node_modules/
 
 # webpack-built files
-/tiptip/static/build/
+tiptip/static/build
 *.gz
 
 # Configuration
