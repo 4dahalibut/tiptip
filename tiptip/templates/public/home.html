@@ -39,13 +39,13 @@
         }
 
         .gradient {
-            background-image: linear-gradient(-225deg, #cbbacc 0%, #2580b3 100%);
+            background-image: linear-gradient(-225deg, #2D3748 0%, #2D3748 100%);
         }
 
         button,
         .gradient2 {
-            background-color: #f39f86;
-            background-image: linear-gradient(315deg, #f39f86 0%, #f9d976 74%);
+            background-color: #EBBA93;
+            background-image: linear-gradient(315deg, #F39F86 0%, #F39F86 90%);
         }
 
         /* Browser mockup code
@@ -69,7 +69,6 @@
             height: 0.5em;
             border-radius: 50%;
             background-color: #f44;
-            box-shadow: 0 0 0 2px #f44, 1.5em 0 0 2px #9b3, 3em 0 0 2px #fb5;
         }
 
         .browser-mockup > * {
@@ -80,7 +79,7 @@
     </style>
 </head>
 
-<body class="gradient leading-relaxed tracking-wide flex flex-col">
+<body class="leading-relaxed tracking-wide flex flex-col">
 {% block body %} {% with form=form %} {% include "nav.html" %} {% endwith %}
     <main role="main">
         {% with messages = get_flashed_messages(with_categories=true) %} {% if
@@ -155,7 +154,7 @@
         </div>
     </div>
 
-    <section class="bg-gray-100 border-b py-8">
+    <section class="border-b py-8">
         <div class="container max-w-5xl mx-auto m-8">
             <h2
                     class="w-full my-2 text-5xl font-black leading-tight text-center text-gray-800"
@@ -741,24 +740,24 @@
         </div>
     </section>
     <section class="gradient w-full mx-auto text-center pt-6 pb-12">
-        <h2
-                class="w-full my-2 text-5xl font-black leading-tight text-center text-white"
-        >
-            Drop us a line
-        </h2>
-        <div class="w-full mb-4">
-            <div
-                    class="h-1 mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t"
-            ></div>
-        </div>
+        <!--<h2-->
+                <!--class="w-full my-2 text-5xl font-black leading-tight text-center text-white"-->
+        <!--&gt;-->
+            <!--Drop us a line-->
+        <!--</h2>-->
+        <!--<div class="w-full mb-4">-->
+            <!--<div-->
+                    <!--class="h-1 mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t"-->
+            <!--&gt;</div>-->
+        <!--</div>-->
 
-        <h3 class="my-4 text-3xl font-extrabold">
+        <h3 class="my-4 text-3xl text-white">
             Enable your users to put their money where their mouse is.</br>
             Please email us with any questions.
         </h3>
 
         <button
-                class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded my-6 py-4 px-8 shadow-lg"
+                class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded my-6 py-4 px-8"
                 onclick="location.href='mailto:denis@gettiptip.com'"
         >
             Email Denis
