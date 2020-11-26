@@ -7,14 +7,13 @@ For local development, use a .env file to set
 environment variables.
 """
 
-import stripe
 from environs import Env
 
 
 env = Env()
 env.read_env()
 
-stripe.api_key = env.str("STRIPE_API_KEY")
+STRIPE_API_KEY = env.str("STRIPE_API_KEY")
 ENV = env.str("FLASK_ENV", default="production")
 DEBUG = ENV == "development"
 SQLALCHEMY_DATABASE_URI = env.str("DATABASE_URL")

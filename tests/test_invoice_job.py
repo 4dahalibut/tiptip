@@ -1,11 +1,11 @@
 import logging
 import time
 
+import stripe
 import pytest
 
 from tiptip.app import create_app
 from tiptip.invoice_job import run
-from tiptip.settings import stripe
 from tiptip.user.models import Customer, Merchant
 
 logging.getLogger().setLevel(logging.INFO)
@@ -14,6 +14,7 @@ logging.getLogger().setLevel(logging.INFO)
 @pytest.fixture()
 def context():
     app = create_app()
+    stripe.api_key = app.config["STRIPE_API_KEY"]
     with app.app_context():
         try:
             yield app
@@ -113,7 +114,7 @@ def test_success(context, customer_zak, customer_sara, merchant_acme, merchant_s
         source="btok_us_verified",
     )
     try:
-        run()
+        run(context)
 
         # Assert correct amount for invoices due
         zak_invoices = stripe.Invoice.list(limit=2, customer=customer_zak.stripe_id)
