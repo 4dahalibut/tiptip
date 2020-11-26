@@ -31,5 +31,6 @@ jobs:
       - name: Unit tests
         env:
           STRIPE_API_KEY: ${{ secrets.STRIPE_API_KEY }}
+          DATABASE_URL: sqlite:////tmp/dev.db
         run: |
           coverage run -m pytest
