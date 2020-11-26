@@ -29,5 +29,7 @@ jobs:
           python -m pip install --upgrade coverage
           python -m pip install -r requirements/dev.txt
       - name: Unit tests
+        env:
+          STRIPE_API_KEY: ${{ secrets.STRIPE_API_KEY }}
         run: |
           coverage run -m pytest

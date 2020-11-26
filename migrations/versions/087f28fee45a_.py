@@ -44,8 +44,14 @@ def upgrade():
         sa.Column("customer_id", sa.Integer(), nullable=True),
         sa.Column("merchant_id", sa.Integer(), nullable=True),
         sa.Column("amount", sa.Numeric(), nullable=True),
-        sa.ForeignKeyConstraint(["customer_id"], ["users.id"],),
-        sa.ForeignKeyConstraint(["merchant_id"], ["users.id"],),
+        sa.ForeignKeyConstraint(
+            ["customer_id"],
+            ["users.id"],
+        ),
+        sa.ForeignKeyConstraint(
+            ["merchant_id"],
+            ["users.id"],
+        ),
         sa.PrimaryKeyConstraint("id"),
     )
     # ### end Alembic commands ###

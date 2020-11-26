@@ -28,7 +28,9 @@ def context():
 
 def make_customer(name, amount_paid):
     # Create customer with stripe
-    stripe_customer = stripe.Customer.create(name=name,)
+    stripe_customer = stripe.Customer.create(
+        name=name,
+    )
 
     # Save user to DB with customer ID.
     return Customer.create(
@@ -59,7 +61,9 @@ def make_merchant(name, amount_earned):
             "country": "US",
             "currency": "usd",
         },
-        capabilities={"transfers": {"requested": True},},
+        capabilities={
+            "transfers": {"requested": True},
+        },
     )
 
     # Save user to DB with merchant ID.
