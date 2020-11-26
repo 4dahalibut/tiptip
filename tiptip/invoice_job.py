@@ -5,8 +5,8 @@ from tiptip.user.models import Customer, Merchant
 logger = logging.getLogger(__name__)
 
 
-def run(app):
-    stripe.api_key = app.config["STRIPE_API_KEY"]
+def run(api_key):
+    stripe.api_key = api_key
     for customer in Customer.query:
         stripe.InvoiceItem.create(
             customer=customer.stripe_id,

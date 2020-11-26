@@ -4,27 +4,24 @@ import time
 import stripe
 import pytest
 
+import os
 from tiptip.app import create_app
 from tiptip.invoice_job import run
 from tiptip.user.models import Customer, Merchant
 
+stripe.api_key = os.getenv("STRIPE_API_KEY")
 logging.getLogger().setLevel(logging.INFO)
 
 
 @pytest.fixture()
-def context():
-    app = create_app()
-    stripe.api_key = app.config["STRIPE_API_KEY"]
-    with app.app_context():
-        try:
-            yield app
-        finally:
-            Customer.query.session.rollback()
-            Customer.query.delete()
-            Customer.query.session.commit()
-            Merchant.query.session.rollback()
-            Merchant.query.delete()
-            Merchant.query.session.commit()
+def clean_tables():
+    yield
+    Customer.query.session.rollback()
+    Customer.query.delete()
+    Customer.query.session.commit()
+    Merchant.query.session.rollback()
+    Merchant.query.delete()
+    Merchant.query.session.commit()
 
 
 def make_customer(name, amount_paid):
@@ -94,18 +91,22 @@ def customer_sara():
 @pytest.fixture()
 def merchant_sears():
     merchant = make_merchant("sears2", 3.25)
+    stripe_id = merchant.stripe_id
     yield merchant
-    stripe.Account.delete(merchant.stripe_id)
+    stripe.Account.delete(stripe_id)
 
 
 @pytest.fixture()
 def merchant_acme():
     merchant = make_merchant("acme3", 1.5)
+    stripe_id = merchant.stripe_id
     yield merchant
-    stripe.Account.delete(merchant.stripe_id)
+    stripe.Account.delete(stripe_id)
 
 
-def test_success(context, customer_zak, customer_sara, merchant_acme, merchant_sears):
+def test_success(
+    db, customer_zak, customer_sara, merchant_acme, merchant_sears, clean_tables
+):
     stripe.Topup.create(
         amount=2000,
         currency="usd",
@@ -114,7 +115,7 @@ def test_success(context, customer_zak, customer_sara, merchant_acme, merchant_s
         source="btok_us_verified",
     )
     try:
-        run(context)
+        run(os.getenv("STRIPE_API_KEY"))
 
         # Assert correct amount for invoices due
         zak_invoices = stripe.Invoice.list(limit=2, customer=customer_zak.stripe_id)
