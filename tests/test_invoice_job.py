@@ -77,15 +77,17 @@ def make_merchant(name, amount_earned):
 @pytest.fixture()
 def customer_zak():
     customer = make_customer("zak", 0.75)
+    stripe_id = customer.stripe_id
     yield customer
-    stripe.Customer.delete(customer.stripe_id)
+    stripe.Customer.delete(stripe_id)
 
 
 @pytest.fixture()
 def customer_sara():
     customer = make_customer("sara", 1.25)
+    stripe_id = customer.stripe_id
     yield customer
-    stripe.Customer.delete(customer.stripe_id)
+    stripe.Customer.delete(stripe_id)
 
 
 @pytest.fixture()
