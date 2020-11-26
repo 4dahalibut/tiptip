@@ -1,4 +1,6 @@
 """Settings module for test app."""
+import os
+
 ENV = "development"
 TESTING = True
 SQLALCHEMY_DATABASE_URI = "sqlite://"
@@ -10,3 +12,4 @@ DEBUG_TB_ENABLED = False
 CACHE_TYPE = "simple"  # Can be "memcached", "redis", etc.
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 WTF_CSRF_ENABLED = False  # Allows form testing
+STRIPE_API_KEY = os.getenv("STRIPE_API_KEY")

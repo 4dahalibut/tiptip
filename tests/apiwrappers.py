@@ -1,6 +1,3 @@
-import requests
-
-
 def login(testapp, username, password):
     res = testapp.get("/")
     # Fills out login form in navbar
@@ -10,7 +7,6 @@ def login(testapp, username, password):
     # Submits
     res = form.submit()
     assert res.status_code == 302
-    return "The Cookie"
 
 
 def logout(testapp):
