@@ -42,4 +42,6 @@ environs==8.0.0
 
 #So that decimal will json dumps properly
 simplejson==3.17.0
+
 requests==2.24.0
+stripe>=2.48.0,<3.0

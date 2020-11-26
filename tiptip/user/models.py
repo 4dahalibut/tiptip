@@ -1,17 +1,25 @@
 # -*- coding: utf-8 -*-
-import decimal
 import datetime as dt
+import decimal
 
 from flask_login import UserMixin
+from sqlalchemy import ForeignKey, Integer, Numeric
+from sqlalchemy.orm import relationship
 
-from tiptip.database import (
-    Column,
-    PkModel,
-    db,
-    reference_col,
-    relationship,
-)
+from tiptip.database import Column, db, PkModel
 from tiptip.extensions import bcrypt
+
+
+class Payment(PkModel):
+    __tablename__ = "payments"
+
+    customer_id = Column(Integer, ForeignKey("users.id"))
+    customer = relationship("Customer", foreign_keys=[customer_id])
+
+    merchant_id = Column(Integer, ForeignKey("users.id"))
+    merchant = relationship("Merchant", foreign_keys=[merchant_id])
+
+    amount = Column(Numeric)
 
 
 class User(UserMixin, PkModel):
@@ -27,6 +35,7 @@ class User(UserMixin, PkModel):
     last_name = Column(db.String(30), nullable=True)
     active = Column(db.Boolean(), default=False)
     type = Column(db.String(20))
+    stripe_id = Column(db.String())
 
     def __init__(self, username, email, password=None, **kwargs):
         """Create instance."""
@@ -81,3 +90,9 @@ class Merchant(User):
     __mapper_args__ = {
         "polymorphic_identity": "merchant",
     }
+
+
+def transact(customer, merchant, amount):
+    Payment.create(customer_id=customer.id, merchant_id=merchant.id, amount=amount)
+    customer.charge(amount)
+    merchant.pay(amount)

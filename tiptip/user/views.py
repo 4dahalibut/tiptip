@@ -4,7 +4,7 @@ import simplejson as json  # Used
 from flask import Blueprint, render_template, request
 from flask_login import login_required, current_user
 from flask_api import status
-from tiptip.user.models import Merchant
+from tiptip.user.models import Merchant, transact
 
 blueprint = Blueprint("user", __name__, url_prefix="/users", static_folder="../static")
 
@@ -24,8 +24,7 @@ def tip():
     merchant = Merchant.get_by_id(merchant_id)
     if merchant is None:
         return status.HTTP_400_BAD_REQUEST
-    current_user.charge(amount)
-    merchant.pay(amount)
+    transact(customer=current_user, merchant=merchant, amount=amount)
 
     return "Tip Complete", status.HTTP_202_ACCEPTED
 
