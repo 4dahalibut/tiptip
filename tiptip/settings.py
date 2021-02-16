@@ -14,6 +14,7 @@ env = Env()
 env.read_env()
 
 STRIPE_API_KEY = env.str("STRIPE_API_KEY")
+MAILCHIMP_KEY = env.str("MAILCHIMP_KEY")
 ENV = env.str("FLASK_ENV", default="production")
 DEBUG = ENV == "development"
 SQLALCHEMY_DATABASE_URI = env.str("DATABASE_URL")
