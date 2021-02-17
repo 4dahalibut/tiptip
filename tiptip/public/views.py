@@ -97,7 +97,7 @@ def register_merchant():
     return render_template("public/register_merchant.html", form=form)
 
 
-@blueprint.route("/signup/", methods=["post"])
+@blueprint.route("/signup/", methods=["POST"])
 def signup():
     data = {
         "email_address": request.form["email"],
